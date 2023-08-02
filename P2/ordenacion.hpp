@@ -1,10 +1,10 @@
 #include <algorithm>
 
 void intercambio(int* p, int* f){
-    for(int* j = f ; j > p ; j--)
-        for (int* i = p ; i < j ; i++) 
-            if(*i > *(i+1))
-                std::swap(*i, *(i+1));
+    for(int* i = p ; i < f-1 ; i++)
+        for(int* j = p ; j < f-1 ; j++) 
+            if(*j > *(j+1))
+                std::swap(*j, *(j+1));
 }
 
 void seleccion(int* p, int* f){
