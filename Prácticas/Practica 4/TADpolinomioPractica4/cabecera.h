@@ -1,0 +1,6 @@
+#ifndef CABECERA_H_INCLUDED
+#define CABECERA_H_INCLUDED
+
+
+
+#endif // CABECERA_H_INCLUDED
