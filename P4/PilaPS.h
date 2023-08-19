@@ -1,33 +1,33 @@
-#ifndef TADPILAPSEUDOESTATICA_H
-#define TADPILAPSEUDOESTATICA_H
+#ifndef PILAPS_H
+#define PILAPS_H
 #include <cassert>
 
-template <typename tElemento> class PilaE {
+template <typename tElemento> class Pila {
 public:
-    explicit PilaE(unsigned TamaMax); /*Constructor*/
-    PilaE(const PilaE& P); /*Constructor de copia*/
-    PilaE& operator= (const PilaE& P); //Asignación entre pilas
+    explicit Pila(unsigned TamaMax); /*Constructor*/
+    Pila(const Pila& P); /*Constructor de copia*/
+    Pila& operator= (const Pila& P); //Asignaciï¿½n entre pilas
     bool vacia() const;
-    bool llena() const; //Requerida por la implementación
+    bool llena() const; //Requerida por la implementaciï¿½n
     const tElemento& tope() const;
     void pop();
     void push(const tElemento& x);
-    ~PilaE(); /*Destructor*/
+    ~Pila(); /*Destructor*/
 private:
     tElemento *elementos; //Vector de elementos
-    int Lmax; //Tamaño del vector
-    int tope_; //Posición del tope
+    int Lmax; //Tamaï¿½o del vector
+    int tope_; //Posiciï¿½n del tope
 };
 
 template <typename tElemento>
-inline PilaE<tElemento>::PilaE(unsigned TamaMax) :
+inline Pila<tElemento>::Pila(unsigned TamaMax) :
     elementos(new tElemento[TamaMax]),
     Lmax(TamaMax),
     tope_(-1)
 {}
 
 template <typename tElemento>
-PilaE<tElemento>::PilaE(const PilaE<tElemento>& P) :
+Pila<tElemento>::Pila(const Pila<tElemento>& P) :
     elementos(new tElemento[P.Lmax]),
     Lmax(P.Lmax),
     tope_(P.tope_)
@@ -37,9 +37,9 @@ PilaE<tElemento>::PilaE(const PilaE<tElemento>& P) :
 }
 
 template <typename tElemento>
-PilaE<tElemento>& PilaE<tElemento>::operator= (const PilaE<tElemento>& P)
+Pila<tElemento>& Pila<tElemento>::operator= (const Pila<tElemento>& P)
 {
-    if(this != &P) { //Evitar autoasignación
+    if(this != &P) { //Evitar autoasignaciï¿½n
         //Destruir el vector y crear uno nuevo si es necesario
         if (Lmax != P.Lmax) {
             delete[] elementos;
@@ -55,33 +55,33 @@ PilaE<tElemento>& PilaE<tElemento>::operator= (const PilaE<tElemento>& P)
 }
 
 template <typename tElemento>
-inline bool PilaE<tElemento>::vacia() const
+inline bool Pila<tElemento>::vacia() const
 {
     return (tope_ == -1);
 }
 
 template <typename tElemento>
-inline bool PilaE<tElemento>::llena() const
+inline bool Pila<tElemento>::llena() const
 {
     return (tope_ == Lmax - 1);
 }
 
 template <typename tElemento>
-inline const tElemento& PilaE<tElemento>::tope() const
+inline const tElemento& Pila<tElemento>::tope() const
 {
     assert(!vacia());
     return elementos[tope_];
 }
 
 template <typename tElemento>
-inline void PilaE<tElemento>::pop()
+inline void Pila<tElemento>::pop()
 {
     assert(!vacia());
     --tope_;
 }
 
 template <typename tElemento>
-inline void PilaE<tElemento>::push(const tElemento& x)
+inline void Pila<tElemento>::push(const tElemento& x)
 {
     assert(!llena());
     ++tope_;
@@ -89,7 +89,7 @@ inline void PilaE<tElemento>::push(const tElemento& x)
 }
 
 template <typename tElemento>
-inline PilaE<tElemento>::~PilaE()
+inline Pila<tElemento>::~Pila()
 {
     delete[] elementos;
 }

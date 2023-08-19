@@ -1,61 +1,61 @@
-#ifndef TADPILADINAMICA_H
-#define TADPILADINAMICA_H
+#ifndef Pila_H
+#define Pila_H
 #include <cassert>
 
-template <typename tElemento> class PilaD {
+template <typename tElemento> class Pila {
 public:
-    explicit PilaD();                   /*Constructor*/
-    PilaD(const PilaD<tElemento>& P);   /*Constructor de copia*/
-    PilaD<tElemento>& operator= (const PilaD<tElemento>& P); //Asignación entre pilas
+    explicit Pila();                   /*Constructor*/
+    Pila(const Pila<tElemento>& P);   /*Constructor de copia*/
+    Pila<tElemento>& operator= (const Pila<tElemento>& P); //Asignaciï¿½n entre pilas
     bool vacia() const;
     const tElemento& tope() const;
     tElemento pop();
     void push(const tElemento& x);
-    ~PilaD(); /*Destructor*/
+    ~Pila(); /*Destructor*/
 private:
     struct nodo {
         tElemento elto;
         nodo* sig;
         nodo (const tElemento& e, nodo* p = 0): elto(e), sig(p) {}
     };
-    nodo* tope_; //Posición del tope
-    void copiar(const PilaD<tElemento>& P);
+    nodo* tope_; //Posiciï¿½n del tope
+    void copiar(const Pila<tElemento>& P);
 };
 
 template <typename tElemento>
-inline PilaD<tElemento>::PilaD() : tope_(0) {}
+inline Pila<tElemento>::Pila() : tope_(0) {}
 
 template <typename tElemento>
-PilaD<tElemento>::PilaD(const PilaD<tElemento>& P) : tope_(0)
+Pila<tElemento>::Pila(const Pila<tElemento>& P) : tope_(0)
 {
     copiar(P);
 }
 
 template <typename tElemento>
-PilaD<tElemento>& PilaD<tElemento>::operator= (const PilaD<tElemento>& P)
+Pila<tElemento>& Pila<tElemento>::operator= (const Pila<tElemento>& P)
 {
-    if(this != &P) {    //Evitar autoasignación
-        this->~PilaD();  //Vaciar la pila actual
+    if(this != &P) {    //Evitar autoasignaciï¿½n
+        this->~Pila();  //Vaciar la pila actual
         copiar(P);
     }
     return *this;
 }
 
 template <typename tElemento>
-inline bool PilaD<tElemento>::vacia() const
+inline bool Pila<tElemento>::vacia() const
 {
     return (!tope_);
 }
 
 template <typename tElemento>
-inline const tElemento& PilaD<tElemento>::tope() const
+inline const tElemento& Pila<tElemento>::tope() const
 {
     assert(!vacia());
     return tope_->elto;
 }
 
 template <typename tElemento>
-inline tElemento PilaD<tElemento>::pop()
+inline tElemento Pila<tElemento>::pop()
 {
     assert(!vacia());
     nodo* p = tope_;
@@ -66,14 +66,14 @@ inline tElemento PilaD<tElemento>::pop()
 }
 
 template <typename tElemento>
-inline void PilaD<tElemento>::push(const tElemento& x)
+inline void Pila<tElemento>::push(const tElemento& x)
 {
     tope_ = new nodo(x, tope_);
 }
 
-//Destructor: vacía la pila
+//Destructor: vacï¿½a la pila
 template <typename tElemento>
-PilaD<tElemento>::~PilaD()
+Pila<tElemento>::~Pila()
 {
     nodo* p;
     while(tope_) {
@@ -83,12 +83,12 @@ PilaD<tElemento>::~PilaD()
     }
 }
 
-template <typename tElemento> void PilaD<tElemento>::copiar(const PilaD<tElemento>& P){
+template <typename tElemento> void Pila<tElemento>::copiar(const Pila<tElemento>& P){
     if (!P.vacia()) {
         tope_ = new nodo(P.tope()); //Copiar el primer elto
         //Copiar el resto de elementos hasta el fondo de la pila
         nodo* p = tope_; //Recorre la pila destino
-        nodo* q = P.tope_->sig; //2º nodo, recorre la pila origen
+        nodo* q = P.tope_->sig; //2ï¿½ nodo, recorre la pila origen
         while(q) {
             p->sig = new nodo (q->elto);
             p = p->sig;
@@ -97,4 +97,4 @@ template <typename tElemento> void PilaD<tElemento>::copiar(const PilaD<tElement
     }
 }
 
-#endif // TADPILADINAMICA_H
+#endif // TADPILAINAMICA_H
