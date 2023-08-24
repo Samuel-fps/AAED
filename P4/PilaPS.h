@@ -94,4 +94,4 @@ inline Pila<tElemento>::~Pila()
     delete[] elementos;
 }
 
-#endif // TADPILAPSEUDOESTATICA_H
+#endif 
