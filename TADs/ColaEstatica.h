@@ -1,18 +1,18 @@
-#ifndef TADCOLAESTATICA_H_INCLUDED
-#define TADCOLAESTATICA_H_INCLUDED
+#ifndef TADCOLASTATICA_H_INCLUDED
+#define TADCOLASTATICA_H_INCLUDED
 #include <cassert>
 
-template <typename T> class ColaE {
+template <typename T> class Cola {
     public:
-        explicit ColaE(size_t TamaMax); // constructor, requiere ctor. T()
-        ColaE(const ColaE<T>& C); // ctor. de copia, requiere ctor. T()
-        ColaE<T>& operator =(const ColaE<T>& C); // asignación de colas, requiere ctor. T()
+        explicit Cola(size_t TamaMax); // constructor, requiere ctor. T()
+        Cola(const Cola<T>& C); // ctor. de copia, requiere ctor. T()
+        Cola<T>& operator =(const Cola<T>& C); // asignación de colas, requiere ctor. T()
         bool vacia() const;
         bool llena() const; //Requerida por la implementación
         const T& frente() const;
         void pop();
         void push(const T& x);
-        ~ColaE();    //Destructor
+        ~Cola();    //Destructor
 
     private:
         T *elementos;   //Vecotr de elementos
@@ -21,7 +21,7 @@ template <typename T> class ColaE {
         };
 
 template <typename T>
-ColaE<T>::ColaE(size_t TamaMax) :
+Cola<T>::Cola(size_t TamaMax) :
     elementos(new T[TamaMax +1]),   //+1 para dectectar cola llena
     Lmax(TamaMax + 1),
     inicio(0),
@@ -29,7 +29,7 @@ ColaE<T>::ColaE(size_t TamaMax) :
 {}
 
 template <typename T>
-ColaE<T>::ColaE(const ColaE<T>& C):
+Cola<T>::Cola(const Cola<T>& C):
     elementos(new T[C.Lmax]),   //+1 para dectectar cola llena
     Lmax(C.Lmax),
     inicio(C.inicio),
@@ -42,7 +42,7 @@ ColaE<T>::ColaE(const ColaE<T>& C):
 }
 
 template <typename T>
- ColaE<T>& ColaE<T>::operator =(const ColaE<T>& C) {
+ Cola<T>& Cola<T>::operator =(const Cola<T>& C) {
     if (this != &C) { // evitar autoasignación
         //Destruir el vector y crear uno nuevo si es necesario
         if (Lmax != C.Lmax){
@@ -60,33 +60,33 @@ template <typename T>
     return *this;
 }
 
-template <typename T> inline bool ColaE<T>::vacia() const {
+template <typename T> inline bool Cola<T>::vacia() const {
     return ((fin + 1) % Lmax == inicio);
 }
 
-template <typename T> inline bool ColaE<T>::llena() const {
+template <typename T> inline bool Cola<T>::llena() const {
     return ((fin + 2) % Lmax == inicio);
 }
 
-template <typename T> inline const T& ColaE<T>::frente() const {
+template <typename T> inline const T& Cola<T>::frente() const {
     assert(!vacia());
     return elementos[inicio];
 }
 
-template <typename T> inline void ColaE<T>::pop() {
+template <typename T> inline void Cola<T>::pop() {
     assert(!vacia());
     inicio = (inicio + 1) % Lmax;
 }
 
-template <typename T> inline void ColaE<T>::push(const T& x) {
+template <typename T> inline void Cola<T>::push(const T& x) {
     assert(!llena());
     fin = (fin + 1) % Lmax;
     elementos[fin] = x;
 }
 
 // Destructor: vacía la cola
-template <typename T> inline ColaE<T>::~ColaE() {
+template <typename T> inline Cola<T>::~Cola() {
     delete[] elementos;
 }
 
-#endif // TADCOLAESTATICA_H_INCLUDED
+#endif // TADColaSTATICA_H_INCLUDED

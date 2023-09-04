@@ -1,8 +1,8 @@
-#ifndef TADLISTAESTATICA_H_INCLUDED
-#define TADLISTAESTATICA_H_INCLUDED
+#ifndef LISTASTATICA_H_INCLUDED
+#define LISTASTATICA_H_INCLUDED
 #include <cassert>
 
-template <typename T> class ListaE {
+template <typename T> class Lista {
     public:
         typedef int posicion; // posición de un elto
         explicit Lista(size_t TamaMax); // constructor
@@ -114,4 +114,4 @@ template <typename T> inline Lista<T>::~Lista() {
 }
 
 
-#endif // TADLISTAESTATICA_H_INCLUDED
+#endif // TADLISTASTATICA_H_INCLUDED

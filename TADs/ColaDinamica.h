@@ -1,17 +1,17 @@
-#ifndef TADCOLADINAMICA_H_INCLUDED
-#define TADCOLADINAMICA_H_INCLUDED
+#ifndef TADCOLAINAMICA_H_INCLUDED
+#define TADCOLAINAMICA_H_INCLUDED
 #include <cassert>
 
-template <typename T> class ColaD {
+template <typename T> class Cola {
     public:
-        ColaD(); // constructor
-        ColaD(const ColaD<T>& C); // ctor. de copia
-        ColaD<T>& operator =(const ColaD<T>& C); // asignación de colas
+        Cola(); // constructor
+        Cola(const Cola<T>& C); // ctor. de copia
+        Cola<T>& operator =(const Cola<T>& C); // asignación de colas
         bool vacia() const;
         const T& frente() const;
         void pop();
         void push(const T& x);
-        ~ColaD(); // destructor
+        ~Cola(); // destructor
 
     private:
         struct nodo {
@@ -20,12 +20,12 @@ template <typename T> class ColaD {
             nodo(const T& e, nodo* p = 0): elto(e), sig(p) {}
         };
         nodo *inicio, *fin; // extremos de la cola
-        void copiar(const ColaD<T>& C);
+        void copiar(const Cola<T>& C);
         };
 
         // Método privado
 template <typename T>
-void ColaD<T>::copiar(const ColaD<T>& C) {
+void Cola<T>::copiar(const Cola<T>& C) {
     if (C.inicio) { // C no está vacía
         // Copiar el primer elto.
         inicio = fin = new nodo(C.inicio->elto);
@@ -37,30 +37,30 @@ void ColaD<T>::copiar(const ColaD<T>& C) {
     }
 }
 
-template <typename T> inline ColaD<T>::ColaD() : inicio(0), fin(0) {}
+template <typename T> inline Cola<T>::Cola() : inicio(0), fin(0) {}
 
-template <typename T> inline ColaD<T>::ColaD(const ColaD<T>& C) : inicio(0), fin(0) {
+template <typename T> inline Cola<T>::Cola(const Cola<T>& C) : inicio(0), fin(0) {
     copiar(C);
 }
 
-template <typename T> inline ColaD<T>& ColaD<T>::operator =(const ColaD<T>& C) {
+template <typename T> inline Cola<T>& Cola<T>::operator =(const Cola<T>& C) {
     if (this != &C) { // evitar autoasignación
-        this->~ColaD(); // vaciar la cola actual
+        this->~Cola(); // vaciar la cola actual
         copiar(C);
     }
     return *this;
 }
 
-template <typename T> inline bool ColaD<T>::vacia() const {
+template <typename T> inline bool Cola<T>::vacia() const {
     return (inicio == 0);
 }
 
-template <typename T> inline const T& ColaD<T>::frente() const {
+template <typename T> inline const T& Cola<T>::frente() const {
     assert(!vacia());
     return inicio->elto;
 }
 
-template <typename T> inline void ColaD<T>::pop() {
+template <typename T> inline void Cola<T>::pop() {
     assert(!vacia());
     nodo* p = inicio;
     inicio = p->sig;
@@ -68,7 +68,7 @@ template <typename T> inline void ColaD<T>::pop() {
     delete p;
 }
 
-template <typename T> inline void ColaD<T>::push(const T& x) {
+template <typename T> inline void Cola<T>::push(const T& x) {
     nodo* p = new nodo(x);
     if (inicio == 0) // cola vacía
         inicio = fin = p;
@@ -76,7 +76,7 @@ template <typename T> inline void ColaD<T>::push(const T& x) {
 }
 
 // Destructor: vacía la cola
-template <typename T> ColaD<T>::~ColaD() {
+template <typename T> Cola<T>::~Cola() {
     nodo* p;
     while (inicio) {
         p = inicio->sig;
@@ -86,4 +86,4 @@ template <typename T> ColaD<T>::~ColaD() {
     fin = 0;
 }
 
-#endif // TADCOLADINAMICA_H_INCLUDED
+#endif // TADCOLAINAMICA_H_INCLUDED
