@@ -5,21 +5,21 @@
 
 template <typename tElemento>
 class Pila {
-public:
-    explicit Pila(unsigned TamaMax); // Constructor, requiere constructor de tElemento()
-    Pila(const Pila& P); // Constructor de copia
-    Pila& operator=(const Pila& P); // Asignación entre pilas
-    bool vacia() const;
-    bool llena() const; // Requerida por la implementación
-    const tElemento& tope() const;
-    void pop();
-    void push(const tElemento& x);
-    ~Pila(); // Destructor
+    public:
+        explicit Pila(unsigned TamaMax); // Constructor, requiere constructor de tElemento()
+        Pila(const Pila& P); // Constructor de copia
+        Pila& operator=(const Pila& P); // Asignación entre pilas
+        bool vacia() const;
+        bool llena() const; // Requerida por la implementación
+        const tElemento& tope() const;
+        void pop();
+        void push(const tElemento& x);
+        ~Pila(); // Destructor
 
-private:
-    tElemento *elementos; // Vector de elementos
-    unsigned Lmax; // Tamaño del vector
-    unsigned n_eltos; // Tamaño de la pila
+    private:
+        tElemento *elementos; // Vector de elementos
+        unsigned Lmax; // Tamaño del vector
+        unsigned n_eltos; // Tamaño de la pila
 };
 
 template <typename tElemento>

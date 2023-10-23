@@ -30,10 +30,10 @@ ESPECIFICACION:
         Post:   Devuelve true si es Tren esta vacio o false si no lo esta.
 */
 
+typedef int Vagon;
+
 class Tren {
     public:
-        typedef int Vagon;
-
         Tren();
         ~Tren();
         void desplazarIzq();
@@ -47,8 +47,26 @@ class Tren {
         Pila<Vagon> derecha; // vagonActivo = Tope Pila derecha
 };
 
-#endif
+Tren::Tren(){}
 
-/*
-TAD CONOCIDOS
-*/
+void Tren::desplazarIzq(){
+
+}
+
+void Tren::desplazarDrch(){
+
+}
+
+void Tren::eliminarVagon(){
+    derecha.pop():
+}
+
+const Vagon& Tren::vagonActivo() const {
+    return derecha.tope();
+}
+
+bool Tren::vacio() const { 
+    return izquierda.vacia() && derecha.vacia();
+}
+
+#endif

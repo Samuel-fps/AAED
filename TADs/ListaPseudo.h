@@ -1,5 +1,3 @@
-#ifdef LISTA_VEC_H
-#define LISTA_VEC_H
 
 #include <cassert>
 
@@ -152,5 +150,3 @@ template <typename T>
 inline Lista<T>::~Lista() {
     delete[] elementos;
 }
-
-#endif

@@ -21,7 +21,7 @@ template <typename T> class Cola {
         };
         nodo *inicio, *fin; // extremos de la cola
         void copiar(const Cola<T>& C);
-        };
+};
 
         // Método privado
 template <typename T>
