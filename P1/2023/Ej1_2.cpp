@@ -15,7 +15,7 @@ using namespace std;
 */
 
 int randomInt(int a, int b){
-	return a + rand() % b - a + 1; // Sumamos 1 porque asemos modulo de a-b nunca se podria dar el valor de b
+	return a + rand() % b - a + 1; // Sumamos 1 porque hacemos modulo de a-b nunca se podria dar el valor de b
 }
 
 int main(){
