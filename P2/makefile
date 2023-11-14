@@ -1,7 +1,7 @@
 # Compilador de C++ y opciones de compilacion.
 
 CXX = c++
-CXXFLAGS = -ansi -Wall -O$(OPTIMIZACION)
+CXXFLAGS = -ansi -Wall -O$(OPTIMIZACION) -std=c++11
 
 # Nivel de optimizacion (por omision, no se optimiza).
 
@@ -9,7 +9,7 @@ OPTIMIZACION = 0
 
 # Modulos objeto y ejecutables.
 
-OBJS = prueba-1.o prueba-2.o prueba-3.o ../Ejercicio1/ordenacion.o
+OBJS = prueba-1.o prueba-2.o prueba-3.o ordenacion.o
 EXES = prueba-1 prueba-2 prueba-3
 
 # Ficheros de tiempo y de graficas.
@@ -23,18 +23,18 @@ all: $(TIEMPOS)
 
 # Obtencion de los ejecutables.
 
-prueba-1: prueba-1.o ../Ejercicio1/ordenacion.o
+prueba-1: prueba-1.o ordenacion.o
 	$(CXX) $(LDFLAGS) -o $@ $^
 
-prueba-2: prueba-2.o ../Ejercicio1/ordenacion.o
+prueba-2: prueba-2.o ordenacion.o
 	$(CXX) $(LDFLAGS) -o $@ $^
 
-prueba-3: prueba-3.o ../Ejercicio1/ordenacion.o
+prueba-3: prueba-3.o ordenacion.o
 	$(CXX) $(LDFLAGS) -o $@ $^
 
 # Obtencion de los objetos.
 
-$(OBJS): cronometro.h ../Ejercicio1/ordenacion.h
+$(OBJS): cronometro.h ordenacion.h
 
 # Obtencion de los ficheros de tiempo.
 
