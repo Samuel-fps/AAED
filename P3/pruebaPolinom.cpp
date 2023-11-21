@@ -1,5 +1,4 @@
 #include "polinomio.h"
-#include "operadores.h"
 
 #include <iostream>
 
@@ -22,7 +21,8 @@ int main(){
 */
     printPolinom(p1);
 
-    p1 = p1 - p1;
+    // p1 = p1 * p1;
+    p1 = p1/p1;
 
     printPolinom(p1);
     

@@ -1,4 +1,4 @@
-#include "polinom.h"
+#include "polinomio.h"
 
 polinomio operator +(const polinomio& p1, const polinomio& p2);
 polinomio operator -(const polinomio& p1, const polinomio& p2);
