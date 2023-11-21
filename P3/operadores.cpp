@@ -6,7 +6,7 @@
 polinomio operator +(const polinomio& p1, const polinomio& p2){
     unsigned gradoMax = std::max(p1.grado(), p2.grado());
     polinomio res(gradoMax);
-    for(unsigned i = 0 ; i < gradoMax ; i++)
+    for(unsigned i=0 ; i <= gradoMax ; i++)
         res.coeficiente(i, p1.coeficiente(i) + p2.coeficiente(i));
     return res;
 }
@@ -48,11 +48,19 @@ polinomio derivar(const polinomio& p){
 void printPolinom(const polinomio& p){
     std::cout << p.grado() << std::endl;
     for(int i=p.grado() ; i >= 0 ; i--){
-        if(p.coeficiente(i) < 0)
-            std::cout << " - ";
-        else
-            std::cout << " + ";
-        std::cout << p.coeficiente(i);
+        if(p.coeficiente(i) != 0){
+            if(p.grado() != i){
+                if(p.coeficiente(i) < 0)
+                    std::cout << " - ";
+                else
+                    std::cout << " + ";
+            }
+            std::cout << p.coeficiente(i);
+            if(i > 1)
+                std::cout << "x^" << i;
+            else if(i == 1)
+                std::cout << "x";
+        }
     }
     std::cout << std::endl;
 }
