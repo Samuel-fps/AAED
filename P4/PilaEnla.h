@@ -1,100 +1,92 @@
-#ifndef PILAD_H
-#define PILAD_H
+#ifndef PILA_ENLA_H
+#define PILA_ENLA_H
+#include <cstddef> // size_t
 #include <cassert>
 
-template <typename tElemento> class Pila {
+template <typename T> class Pila {
 public:
-    explicit Pila();                   /*Constructor*/
-    Pila(const Pila<tElemento>& P);   /*Constructor de copia*/
-    Pila<tElemento>& operator= (const Pila<tElemento>& P); //Asignaci�n entre pilas
+    Pila();
     bool vacia() const;
-    const tElemento& tope() const;
-    tElemento pop();
-    void push(const tElemento& x);
-    ~Pila(); /*Destructor*/
+    size_t tama() const;
+    const T& tope() const;
+    void pop();
+    void push(const T& x);
+    Pila(const Pila& P); // Ctor. de copia
+    Pila& operator =(const Pila& P); // Asignación entre pilas
+    ~Pila(); // Destructor
 private:
     struct nodo {
-        tElemento elto;
+        T elto;
         nodo* sig;
-        nodo (const tElemento& e, nodo* p = 0): elto(e), sig(p) {}
+        nodo(const T& e, nodo* p = nullptr) : elto(e), sig(p) {}
     };
-    nodo* tope_; //Posici�n del tope
-    void copiar(const Pila<tElemento>& P);
+
+    nodo* tope_;
+    size_t n_eltos;
+
+    void copiar(const Pila& P);
 };
 
-template <typename tElemento>
-inline Pila<tElemento>::Pila() : tope_(0) {}
-
-template <typename tElemento>
-Pila<tElemento>::Pila(const Pila<tElemento>& P) : tope_(0)
+template <typename T>
+inline bool Pila<T>::vacia() const
 {
-    copiar(P);
+    return (n_eltos == 0); // Alternativa: return tope_ == nullptr;
 }
 
-template <typename tElemento>
-Pila<tElemento>& Pila<tElemento>::operator= (const Pila<tElemento>& P)
+template <typename T>
+inline size_t Pila<T>::tama() const
 {
-    if(this != &P) {    //Evitar autoasignaci�n
-        this->~Pila();  //Vaciar la pila actual
-        copiar(P);
-    }
-    return *this;
+    return n_eltos;
 }
 
-template <typename tElemento>
-inline bool Pila<tElemento>::vacia() const
-{
-    return (!tope_);
-}
-
-template <typename tElemento>
-inline const tElemento& Pila<tElemento>::tope() const
+template <typename T>
+inline const T& Pila<T>::tope() const
 {
     assert(!vacia());
     return tope_->elto;
 }
 
-template <typename tElemento>
-inline tElemento Pila<tElemento>::pop()
+template <typename T>
+inline void Pila<T>::pop()
 {
     assert(!vacia());
     nodo* p = tope_;
     tope_ = p->sig;
-    tElemento eltoAux = p->elto;
     delete p;
-    return eltoAux;
+    --n_eltos;
 }
 
-template <typename tElemento>
-inline void Pila<tElemento>::push(const tElemento& x)
+template <typename T>
+inline void Pila<T>::push(const T& x)
 {
     tope_ = new nodo(x, tope_);
+    ++n_eltos;
 }
 
-//Destructor: vac�a la pila
-template <typename tElemento>
-Pila<tElemento>::~Pila()
+template <typename T>
+inline Pila<T>::Pila(const Pila& P) : Pila()
+{
+    copiar(P);
+}
+
+template <typename T>
+Pila<T>& Pila<T>::operator =(const Pila& P)
+{
+    if (this != &P) { // Evitar autoasignación
+        this->~Pila(); // Vaciar la pila actual
+        copiar(P);
+    }
+    return *this;
+}
+
+template <typename T>
+Pila<T>::~Pila()
 {
     nodo* p;
-    while(tope_) {
+    while (tope_) {
         p = tope_->sig;
         delete tope_;
         tope_ = p;
     }
+    n_eltos = 0;
 }
-
-template <typename tElemento> void Pila<tElemento>::copiar(const Pila<tElemento>& P){
-    if (!P.vacia()) {
-        tope_ = new nodo(P.tope()); //Copiar el primer elto
-        //Copiar el resto de elementos hasta el fondo de la pila
-        nodo* p = tope_; //Recorre la pila destino
-        nodo* q = P.tope_->sig; //2� nodo, recorre la pila origen
-        while(q) {
-            p->sig = new nodo (q->elto);
-            p = p->sig;
-            q = q->sig;
-        }
-    }
-}
-
-#endif // TADPILAINAMICA_H
