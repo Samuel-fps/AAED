@@ -4,10 +4,12 @@
 #include <iostream>
 #include <algorithm>
 #include <fstream> 
-#include <random>
+#include <cstdlib>
 
 #define N 20000 // Longitud maxia del ejemplar
 #define I 1000 // Incremento
+
+using namespace std;
 
 double calcularTiempo(const int v[], int l, int nAlgoritmo);
 
@@ -15,11 +17,8 @@ int main() {
     int v[N], veces=0;
     double t1=0;
 
-    std::ofstream file1("prueba-1.tmp");
-    
-    // Generaor para el shuffle
-    std::random_device rd;
-    std::mt19937 gen(rd());
+    ofstream file1("prueba-1.tmp");
+    srand(time(nullptr));
 
     // generar ejemplares de rueba
     for(int i = 1000 ; i < N ; i += 1000){
@@ -27,7 +26,7 @@ int main() {
             v[j] = j+1;
         veces++;
 
-        std::shuffle(v, v+i, gen);
+        random_shuffle(v, v+i);
 
         t1 += calcularTiempo(v, i, 1);
 
@@ -39,7 +38,7 @@ int main() {
 
 double calcularTiempo(const int v[], int l, int nAlgoritmo){
     int copia[N];
-    std::copy(v, v+l, copia);
+    copy(v, v+l, copia);
     cronometro c;
     c.activar();
     switch (nAlgoritmo){
