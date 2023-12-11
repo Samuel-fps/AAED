@@ -1,5 +1,5 @@
-#ifndef PILA_ENLA_H
-#define PILA_ENLA_H
+#ifndef PILAENLA_H
+#define PILAENLA_H
 #include <cstddef> // size_t
 #include <cassert>
 
@@ -90,3 +90,5 @@ Pila<T>::~Pila()
     }
     n_eltos = 0;
 }
+
+#endif
