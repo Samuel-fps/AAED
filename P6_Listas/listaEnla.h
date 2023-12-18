@@ -148,4 +148,13 @@ Lista<T>::~Lista()
     delete L;
 }
 
+// Método privado
+template <typename T>
+void Lista<T>::copiar(const Lista& Lis)
+{
+    for (nodo* p = Lis.L->sig; p != Lis.L; p = p->sig, ++n)
+        L = L->sig = new nodo(p->sig->elto, L->sig);
+}
+
+
 #endif
