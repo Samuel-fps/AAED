@@ -1,7 +1,12 @@
+/*  EJERCICIO 4
+    Dadas dos listas de enteros ordenadas, implemente una función que devuelva una tercera
+    lista ordenada con la mezcla de las dos listas de entrada.
+*/
+
 #include "listaOrdenada.h"
 
 template <typename T>
-void mezclarListas(ListaOrdenada<T> l1, ListaOrdenada<T> l2){
+ListaOrdenada<T> mezclarListas(ListaOrdenada<T> l1, ListaOrdenada<T> l2){
     ListaOrdenada<T> res(l1);
 
     Lista<T>::posicion p = l2.primera();
@@ -10,4 +15,5 @@ void mezclarListas(ListaOrdenada<T> l1, ListaOrdenada<T> l2){
         p = l2.siguiente(p);
     }
 
+    return res;
 }

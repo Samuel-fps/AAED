@@ -3,6 +3,7 @@
 
 #include <cstddef> // size_t
 #include <cassert>
+#include "../P4_Pilas/pilaEnla.h"
 
 template <typename T> class Lista {
     struct nodo; // Declaración adelantada privada
@@ -22,6 +23,9 @@ public:
     Lista(const Lista& Lis); // Ctor. de copia, req. ctor. T()
     Lista& operator =(const Lista& Lis); // Asig. de listas
     ~Lista(); // Destructor
+
+    // Ejercicio 5
+    void ImprimeInverso(posicion p) const;
 private:
     struct nodo {
         T elto;
@@ -32,6 +36,27 @@ private:
     size_t n; // Longitud de la lista
     void copiar(const Lista& Lis);
 };
+
+// Ejercicio 5
+template <typename T>
+void Lista<T>::ImprimeInverso(posicion p) const {
+    Pila<T> aux;
+    bool invertir = false;
+
+    posicion i = primera();
+    while(i != fin()){
+        if(i == p)
+            invertir = true;
+        if(invertir)
+            aux.push(elemento(i));
+        i = i->sig;
+    }
+
+    while(!aux.vacia()){
+        std::cout << aux.tope() << " ";
+        aux.pop();
+    }
+}
 
 template <typename T>
 inline Lista<T>::Lista() :
