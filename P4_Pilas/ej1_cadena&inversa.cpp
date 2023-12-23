@@ -12,10 +12,8 @@
 
 bool XandY(char cad[]);
 void invertirSecuencia(int a, int b, Pila<int> p);
-template <typename T>
-void mostrarPila(Pila<T> pila);
-template <typename T>
-Pila<T> vector2pila(std::vector<T> v);
+template <typename T> void mostrarPila(Pila<T> pila);
+template <typename T> Pila<T> vector2pila(std::vector<T> v);
 
 int main(){
     char cad[] = "";
@@ -55,20 +53,6 @@ bool XandY(char cad[]){
     }
     return true;
 }*/
-
-
-/*
-EJERCICIO 2
-Escriba una función que determine y devuelva si una secuencia de caracteres de entrada
-es de la forma A#B#C#D . . ., donde A, B, C, D,. . . son de la forma X&Y , que a su vez
-están separados por el caráter ‘#’.
-*/
-
-/*  EJERCICIO 3
-    Escriba una función que dados dos elementos a y b y una pila, invierta la secuencia delimitada por ambos dentro de ella.
-    Dado que la pila puede tener elementos repetidos, se invertirá la secuencia delimitada por
-    la primera ocurrencia de a y de b.
-*/
 
 void invertirSecuencia(int a, int b, Pila<int> p){
     Pila<int> aux;
