@@ -9,13 +9,16 @@ typedef struct tCarta {
 };
 
 typedef Pila<tCarta> tMazo;
-typedef Pila<tCarta> tBase;
+typedef tCarta tBase;
 typedef Pila<tCarta> tMonton;
 
-// Pre: Recibe un vector de tCarta con 40 elementos
+// Pre: Recibe un vector de tCarta con 40 elementos y su longitud
+// Post: Devuelve un vector con las de bases con las últimas cartas de cada palo en cada posicion
 bool solitario(tCarta cartas[], int n) {
     tMonton mazo, descartes;
     tBase oro, copa, espada, basto;
+
+    tBase* bases = new tBase[4];
 
     for(int i = 0 ; i < n ; i++)
         mazo.push(cartas[i]);
@@ -29,31 +32,31 @@ bool solitario(tCarta cartas[], int n) {
             tCarta carta = descartes.tope();
             switch (carta.palo){
                 case OROS:
-                    if(carta.figura == AS || carta.figura == oro.tope().figura + 1){
-                        oro.push(carta);
+                    if(carta.figura == AS || carta.figura == bases[0].figura + 1){
+                        bases[0].figura = carta.figura;
                         descartes.pop();
                     }            
                     break;
                 case COPAS:
-                    if(carta.figura == AS || carta.figura == copa.tope().figura + 1){
-                        copa.push(carta);
+                    if(carta.figura == AS || carta.figura == bases[1].figura + 1){
+                        bases[1].figura = carta.figura;
                         descartes.pop();
                     }            
                     break;
                 case ESPADAS:
-                    if(carta.figura == AS || carta.figura == espada.tope().figura + 1){
-                        espada.push(carta);
+                    if(carta.figura == AS || carta.figura == bases[2].figura + 1){
+                        bases[2].figura = carta.figura;
                         descartes.pop();
                     }            
                     break;
                 case BASTOS:
-                    if(carta.figura == AS || carta.figura == basto.tope().figura + 1){
-                        basto.push(carta);
+                    if(carta.figura == AS || carta.figura == bases[3].figura + 1){
+                        bases[3].figura = carta.figura;
                         descartes.pop();
                     }            
                     break;
             }
         }
     }
-    return true;
+    return bases;
 }
