@@ -42,9 +42,8 @@ TAD CONOCIDOS (Cola Enlazada)
 
 struct Trabajo {
     std::string codigo;
-    bool urgente;
 
-    Trabajo(std::string c, bool u) : codigo(c), urgente(u) {}
+    Trabajo(std::string c) : codigo(c) {}
 };
 
 struct Usuario {
@@ -58,7 +57,7 @@ struct Usuario {
 class Impresora {
     public:
         Impresora(size_t n);
-        void agregarUsuario(Usuario u, const Trabajo& t);
+        void agregarUsuario(Usuario u, const Trabajo& t, bool);
         void eliminarTrabajo(const Trabajo& t);
         void cancelarUsuario(const Usuario& u);
 
@@ -73,9 +72,15 @@ Impresora::Impresora(size_t max) : nUsuarios(0), _maxUsuarios(max){
     assert(max > 0);
 }
 
-void Impresora::agregarUsuario(Usuario u, const Trabajo& t){
+void Impresora::agregarUsuario(Usuario u, const Trabajo& t, bool urgente){
     assert(nUsuarios+1 < _maxUsuarios);
     size_t pos = nUsuarios+1;
+
+    // introducimos el trabajo en la cola correspondiente
+    if(urgente)
+        usuarios[pos].urgentes.push(t);
+    else
+        usuarios[pos].basicos.push(t);
     
     // Buscar u usuario en vector
     for(size_t i=0 ; i<nUsuarios ; i++)
@@ -87,17 +92,15 @@ void Impresora::agregarUsuario(Usuario u, const Trabajo& t){
         usuarios[nUsuarios] = u;
         nUsuarios++;
     }
-
-    // introducimos el trabajo en la cola correspondiente
-    if(t.urgente)
-        usuarios[pos].urgentes.push(t);
-    else
-        usuarios[pos].basicos.push(t);
+    else{
+        usuarios[pos] = u;
+    }
 
 }
 
 void Impresora::eliminarTrabajo(const Trabajo& t){
     size_t sig = turnos.frente();
+    turnos.pop();
     if(usuarios[sig].urgentes.vacia())
         usuarios[sig].basicos.pop();
     else
