@@ -1,9 +1,11 @@
 #ifndef COCINA_HPP
 #define COCINA_HPP
 
-#include "../TADs/ListaPseudo.h"
+#include "../P6_Listas/listaVec.h"
 
 #include <cassert>
+#include <cstdlib>
+
 
 /*
 DEFINICION
@@ -52,8 +54,7 @@ TADS CONOCIDOS (Lista representacion vectorial)
 
 */
 
-struct Mueble {
-    Mueble(size_t p, unsigned a) : pos(p), anchura(a) {}
+typedef struct Mueble {
     size_t pMueble;
     unsigned anchura;
 };
@@ -72,36 +73,45 @@ class Cocina {
 
     private:
         size_t longitud;
-        Lista<Mueble> M;
+        Lista<Mueble> c;
 };
 
-Cocina::Cocina(size_t l) : longitud(l), M(l) {}
+Cocina::Cocina(size_t l) : longitud(l), c(l) {}
 
 bool Cocina::colocable(const Mueble& m){
     bool posible = true;
-    if(M.primera() == M.fin() && m.pMueble + m.anchura <= longitud) // Si la lista esta vacia y cabe el objeto se devuelve true
+    if(c.vacia() && m.pMueble + m.anchura <= longitud) // Si la lista esta vacia y cabe el objeto se devuelve true
         return true;
 
-    PosMueble pos = M.primera();
-    while(pos != M.fin() && posible){ // Recorremos en busca de la posicion del mueble
-        if(m.pMueble == M.elemento(pos).pMueble && m.pMueble + m.anchura > M.elemento(M.siguiente(pos)).pMueble)
+    PosMueble pos = c.primera();
+    while(pos != c.fin() && posible){ // Recorremos en busca de la posicion del mueble
+        if(m.pMueble == c.elemento(pos).pMueble && m.pMueble + m.anchura > c.elemento(c.siguiente(pos)).pMueble)
             posible = false; 
-        pos = M.siguiente(pos);
+        pos = c.siguiente(pos);
     }
     return posible;
 }
 
 void Cocina::colocar(const Mueble& m){
-    assert(colocable(m));
-    M.insertar(m, m.pMueble);
+    assert(colocable(m)); // 1 <= p <= n
+    if(c.vacia()){
+        c.insertar(m, c.primera());
+    }
+    else{
+        typename Lista<Mueble>::posicion pos = c.primera();
+        while(pos != c.fin() && c.elemento(pos).pMueble < m.pMueble){
+            pos = c.siguiente(pos);
+        }
+    }
+
 }
 
 const Mueble& Cocina::mueble(size_t i){
-    return M.elemento(i); 
+    return c.elemento(i); 
 }
 
 void Cocina::eliminarMueble(size_t i){ // (Lista<Mueble>::posicion i)
-    M.eliminar(i);
+    c.eliminar(i);
 }
 
 void Cocina::moverMueble(size_t i){ // (Lista<Mueble>::posicion i)
