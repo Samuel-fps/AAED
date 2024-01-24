@@ -3,13 +3,13 @@
 enum Palo {OROS, COPAS, ESPADAS, BASTOS};
 enum Figura {AS, DOS, TRES, CUATRO, CINCO, SEIS, SIETE, SOTA, CABALLO, REY};
 
-typedef struct tCarta {
+typedef struct {
     Palo palo;
     Figura figura;
-};
+} tCarta;
 
 typedef Pila<tCarta> tMazo;
-typedef Pila<tCarta> tBase;
+typedef int tBase;
 typedef Pila<tCarta> tMonton;
 
 // Pre: Recibe un vector de tCarta con 40 elementos
@@ -29,26 +29,26 @@ bool solitario(tCarta cartas[], int n) {
             tCarta carta = descartes.tope();
             switch (carta.palo){
                 case OROS:
-                    if(carta.figura == AS || carta.figura == oro.tope().figura + 1){
-                        oro.push(carta);
+                    if(carta.figura == AS || carta.figura == oro + 1){
+                        oro = carta.figura;
                         descartes.pop();
                     }            
                     break;
                 case COPAS:
-                    if(carta.figura == AS || carta.figura == copa.tope().figura + 1){
-                        copa.push(carta);
+                    if(carta.figura == AS || carta.figura == copa + 1){
+                        copa = carta.figura;
                         descartes.pop();
                     }            
                     break;
                 case ESPADAS:
-                    if(carta.figura == AS || carta.figura == espada.tope().figura + 1){
-                        espada.push(carta);
+                    if(carta.figura == AS || carta.figura == espada + 1){
+                        espada = carta.figura;
                         descartes.pop();
                     }            
                     break;
                 case BASTOS:
-                    if(carta.figura == AS || carta.figura == basto.tope().figura + 1){
-                        basto.push(carta);
+                    if(carta.figura == AS || carta.figura == basto + 1){
+                        basto = carta.figura;
                         descartes.pop();
                     }            
                     break;
