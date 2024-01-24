@@ -7,7 +7,7 @@
 #include "../P4_Pilas/pilaEnla.h"
 
 template <typename T>
-void ImprimeInverso(const Lista<T> l, Lista<T>::posicion p) {
+void ImprimeInverso(const Lista<T>& l, typename Lista<T>::posicion p) {
     Pila<T> aux;
     bool invertir = false;
 
